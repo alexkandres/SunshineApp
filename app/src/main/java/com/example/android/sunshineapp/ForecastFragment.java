@@ -29,12 +29,15 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import static android.util.Log.i;
+
 /**
  * A placeholder fragment containing a simple view.
  */
 public class ForecastFragment extends Fragment {
 
     String LOG_TAG = ForecastFragment.class.getSimpleName();
+    ArrayAdapter<String> mForecastAdapter;
 
     public ForecastFragment() {
     }
@@ -59,12 +62,12 @@ public class ForecastFragment extends Fragment {
         int id = item.getItemId();
 
         //case switch it
-        switch(id){
-            case R.id.action_refresh:   Log.i(LOG_TAG, "Refresh clicked");
-                                        //create instance of FetchWeatherTask with execute
-                                        FetchWeatherTask fetchWeatherTask = new FetchWeatherTask();
-                                        fetchWeatherTask.execute();
-                                        return true;
+        if(id == R.id.action_refresh){
+            i(LOG_TAG, "Refresh clicked");
+            //create instance of FetchWeatherTask with execute
+            FetchWeatherTask fetchWeatherTask = new FetchWeatherTask();
+            fetchWeatherTask.execute();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -85,12 +88,12 @@ public class ForecastFragment extends Fragment {
         stringArrayList.add("Sat - Sunny - 76/68");
 
         //pass data into adapter, but dont create until user request them
-        //context, xml file, textview
-        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(getActivity(), R.layout.list_item_forecast, R.id.list_item_forecast_textview, stringArrayList);
+        //context, xml file, textview, string array
+        mForecastAdapter = new ArrayAdapter<>(getActivity(), R.layout.list_item_forecast, R.id.list_item_forecast_textview, stringArrayList);
 
         //create listview and bind arrayadapter to it
         ListView listview = (ListView) rootview.findViewById(R.id.listview_forecast);
-        listview.setAdapter(stringArrayAdapter);
+        listview.setAdapter(mForecastAdapter);
 
         //change getview() to rootView if necessary (inflater.inflate(R.layout.fragment_main, container, false);)
         return rootview;
@@ -101,11 +104,22 @@ public class ForecastFragment extends Fragment {
      */
     public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
 
+        private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
+
+        @Override
+        protected void onPostExecute(String[] strings) {
+            super.onPostExecute(strings);
+
+            //clear global arrayAdapter
+            mForecastAdapter.clear();
+            mForecastAdapter.addAll(strings);
+        }
+
         /* Helper method for getWeatherDataFromJson
-        * The date/time conversion code is going to be moved outside the asynctask later,
-        * so for convenience we're breaking it out into its own method now.
-        * ex. Tue Jul 01
-        */
+                * The date/time conversion code is going to be moved outside the asynctask later,
+                * so for convenience we're breaking it out into its own method now.
+                * ex. Tue Jul 01
+                */
         private String getReadableDateString(long time){
             // Because the API returns a unix timestamp (measured in seconds),
             // it must be converted to milliseconds in order to be converted to valid date.
@@ -196,14 +210,9 @@ public class ForecastFragment extends Fragment {
                 resultStrs[i] = day + " - " + description + " - " + highAndLow;
             }
 
-            for (String s : resultStrs) {
-                Log.v(LOG_TAG, "Forecast entry: " + s);
-            }
             return resultStrs;
 
         }
-
-        private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
 
         /*
         This is the "main function" in FetchWeatherTask
@@ -249,10 +258,10 @@ public class ForecastFragment extends Fragment {
                 weatherUriBuilder.appendQueryParameter("APPID", "2416aeb32b3e3d8360593abf67e88ddc");
 
                 String urlStringFromBuilder = weatherUriBuilder.build().toString();
-                Log.i(LOG_TAG, "tostring " + urlStringFromBuilder);
+
+                //URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=32826&mode=json&units=metric&cnt=7&APPID=2416aeb32b3e3d8360593abf67e88ddc");
                 URL urlFromBuilder = new URL(urlStringFromBuilder);
                 urlConnection = (HttpURLConnection) urlFromBuilder.openConnection();
-                //URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=32826&mode=json&units=metric&cnt=7&APPID=2416aeb32b3e3d8360593abf67e88ddc");
                 urlConnection.setRequestMethod("GET");
 
                 //this caused network thread exception(should be run as a background process)
@@ -282,10 +291,7 @@ public class ForecastFragment extends Fragment {
                 }
 
                 forecastJsonStr = buffer.toString();
-                Log.i(LOG_TAG, "Hello " + forecastJsonStr);
 
-                //argument for zipcode via exucute();
-                //Log.i(LOG_TAG, strings[0]);
             } catch (IOException e) {
                 //Log.e("PlaceholderFragment", "Error ", e);
                 Log.e(LOG_TAG, "Error", e);
