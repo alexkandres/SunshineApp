@@ -13,8 +13,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -95,6 +97,19 @@ public class ForecastFragment extends Fragment {
         ListView listview = (ListView) rootview.findViewById(R.id.listview_forecast);
         listview.setAdapter(mForecastAdapter);
 
+        //put setOnItemClickListener on item in menu
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                //retrieve string from item in menu
+                //String weatherString = (String) adapterView.getItemAtPosition(i);
+                String weatherString =  mForecastAdapter.getItem(i);
+
+                Toast.makeText(getActivity(), weatherString, Toast.LENGTH_SHORT).show();
+            }
+        });
+
         //change getview() to rootView if necessary (inflater.inflate(R.layout.fragment_main, container, false);)
         return rootview;
     }
@@ -110,16 +125,18 @@ public class ForecastFragment extends Fragment {
         protected void onPostExecute(String[] strings) {
             super.onPostExecute(strings);
 
-            //clear global arrayAdapter
-            mForecastAdapter.clear();
-            mForecastAdapter.addAll(strings);
+            if(strings != null) {
+                //clear global arrayAdapter
+                mForecastAdapter.clear();
+                mForecastAdapter.addAll(strings);
+            }
         }
 
         /* Helper method for getWeatherDataFromJson
-                * The date/time conversion code is going to be moved outside the asynctask later,
-                * so for convenience we're breaking it out into its own method now.
-                * ex. Tue Jul 01
-                */
+        * The date/time conversion code is going to be moved outside the asynctask later,
+        * so for convenience we're breaking it out into its own method now.
+        * ex. Tue Jul 01
+        */
         private String getReadableDateString(long time){
             // Because the API returns a unix timestamp (measured in seconds),
             // it must be converted to milliseconds in order to be converted to valid date.
