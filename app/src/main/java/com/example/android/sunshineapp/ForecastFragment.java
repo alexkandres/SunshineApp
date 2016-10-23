@@ -1,5 +1,6 @@
 package com.example.android.sunshineapp;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -105,8 +106,12 @@ public class ForecastFragment extends Fragment {
                 //retrieve string from item in menu
                 //String weatherString = (String) adapterView.getItemAtPosition(i);
                 String weatherString =  mForecastAdapter.getItem(i);
-
                 Toast.makeText(getActivity(), weatherString, Toast.LENGTH_SHORT).show();
+
+                //Create intent to start DetailActivity
+                Intent intentDetailActivity = new Intent(getActivity(), DetailActivity.class);
+                intentDetailActivity.putExtra("weatherdata", weatherString);
+                startActivity(intentDetailActivity);
             }
         });
 

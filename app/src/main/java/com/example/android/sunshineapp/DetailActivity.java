@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class DetailActivity extends AppCompatActivity {
-
+    String LOG_TAG = DetailActivity.class.getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +26,9 @@ public class DetailActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //displays up for navigation
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     @Override
