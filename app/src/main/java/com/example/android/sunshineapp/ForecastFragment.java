@@ -105,7 +105,7 @@ public class ForecastFragment extends Fragment {
                 //retrieve string from item in menu
                 //String weatherString = (String) adapterView.getItemAtPosition(i);
                 String weatherString =  mForecastAdapter.getItem(i);
-
+                //Intent
                 Toast.makeText(getActivity(), weatherString, Toast.LENGTH_SHORT).show();
             }
         });
