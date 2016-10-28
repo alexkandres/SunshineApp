@@ -1,5 +1,6 @@
 package com.example.android.sunshineapp;
 
+import android.content.Intent;
 import
         android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -33,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Log.i(LOG_TAG, "Action settings was clicked");
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
             return true;
         }
         else if (id == R.id.login){
@@ -43,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
             Log.i(LOG_TAG, "Test was clicked");
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

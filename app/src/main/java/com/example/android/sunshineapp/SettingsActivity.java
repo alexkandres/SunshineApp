@@ -11,7 +11,6 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
     }
 
     private void bindPreferenceSummaryToValue(Preference preference){
