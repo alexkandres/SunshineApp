@@ -9,4 +9,6 @@
     <string name="edit">Edit</string>
     <string name="view">View</string>
     <string name="title_activity_detail">DetailActivity</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
 </resources>
