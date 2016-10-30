@@ -10,8 +10,21 @@
     <string name="view">View</string>
     <string name="title_activity_detail">Detail</string>
     <string name="title_activity_settings">Settings</string>
+
+    <!--Location Preference-->
     <string name="pref_location_label">Location</string>
     <string name="pref_location_key" translatable="false">location</string>
     <string name="pref_location_default" translatable="false">94043</string>
+
+    <!--Temperature Preference-->
+    <string name="pref_Temperature_label">Units</string>
+    <string name="pref_Temperature_key" translatable="false">units</string>
+    <string name="pref_Temperature_dialog_title" translatable="false">Units</string>
+    <!--Name of -->
+    <string name="metric_label">Metric</string>
+    <string name="imperial_label">Imperial</string>
+    <string name="metric_value">metric</string>
+    <string name="imperial_value">imperial</string>
+
 
 </resources>
