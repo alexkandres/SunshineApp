@@ -5,6 +5,7 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
 
 public class SettingsActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener{
 
@@ -13,6 +14,9 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.pref_general);
 
+        // For all preferences, attach an OnPreferenceChangeListener so the UI summary can be
+        // updated when the preference changes.		         // updated when the preference changes
+       bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_location_key)));
 
     }
 
@@ -22,12 +26,13 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
 
         // Trigger the listener immediately with the preference's
         // current value.
-        //calling the overridden method
+        //calling the overridden method, to set a default value??
         onPreferenceChange(preference, PreferenceManager
                 .getDefaultSharedPreferences(preference.getContext())
                 .getString(preference.getKey(), ""));
     }
 
+    //onPreferenceChange is called whenever a change is made to a prefrence
     @Override
     public boolean onPreferenceChange(Preference preference, Object value) {
         String stringValue = value.toString();
@@ -43,6 +48,7 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
         } else {
             // For other preferences, set the summary to the value's simple string representation.
             preference.setSummary(stringValue);
+            Toast.makeText(this, "Settings for location changed", Toast.LENGTH_SHORT).show();
         }
         return true;
     }

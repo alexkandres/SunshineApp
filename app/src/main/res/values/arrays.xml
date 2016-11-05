@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="pref_Temperature_entries">
-        <item>@string/imperial_label</item>
-        <item>@string/metric_label</item>
+    <!--Label of ListPreference-->
+    <string-array name="pref_units_options">
+        <item>@string/pref_units_label_imperial</item>
+        <item>@string/pref_units_label_metric</item>
     </string-array>
 
-    <string-array name="pref_Temperature_values">
-        <item>@string/imperial_value</item>
-        <item>@string/metric_value</item>
+
+    <!--Values in ListPreference-->
+    <string-array name="pref_units_values">
+        <item>@string/pref_units_imperial</item>
+
+        <!--Metric set as default value in ListPreference-->
+        <item>@string/pref_units_metric</item>
     </string-array>
 
 </resources>

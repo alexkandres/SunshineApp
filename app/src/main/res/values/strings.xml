@@ -16,15 +16,17 @@
     <string name="pref_location_key" translatable="false">location</string>
     <string name="pref_location_default" translatable="false">94043</string>
 
-    <!--Temperature Preference-->
-    <string name="pref_Temperature_label">Units</string>
-    <string name="pref_Temperature_key" translatable="false">units</string>
-    <string name="pref_Temperature_dialog_title" translatable="false">Units</string>
-    <!--Name of -->
-    <string name="metric_label">Metric</string>
-    <string name="imperial_label">Imperial</string>
-    <string name="metric_value">metric</string>
-    <string name="imperial_value">imperial</string>
+    <!--Temperature Preference Label and key-->
+    <string name="pref_units_label">Temperature Units</string>
+    <string name="pref_units_key" translatable="false">units</string>
+
+    <!--Label of temperature units in string array-->
+    <string name="pref_units_label_metric">Metric</string>
+    <string name="pref_units_label_imperial">Imperial</string>
+
+    <!--Value of temperature units in string array-->
+    <string name="pref_units_metric">metric</string>
+    <string name="pref_units_imperial">imperial</string>
 
 
 </resources>

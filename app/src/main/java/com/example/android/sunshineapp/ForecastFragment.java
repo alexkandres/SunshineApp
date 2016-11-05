@@ -1,9 +1,11 @@
 package com.example.android.sunshineapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.format.Time;
@@ -39,6 +41,7 @@ import static android.util.Log.i;
  */
 public class ForecastFragment extends Fragment {
 
+    static final String LOCATION_KEY= "location";
     String LOG_TAG = ForecastFragment.class.getSimpleName();
     ArrayAdapter<String> mForecastAdapter;
 
@@ -67,9 +70,14 @@ public class ForecastFragment extends Fragment {
         //case switch it
         if(id == R.id.action_refresh){
             i(LOG_TAG, "Refresh clicked");
+
+            //retrieve location zip
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            String zipcode = sharedPreferences.getString(LOCATION_KEY, "location");
+
             //create instance of FetchWeatherTask with execute
             FetchWeatherTask fetchWeatherTask = new FetchWeatherTask();
-            fetchWeatherTask.execute();
+            fetchWeatherTask.execute(zipcode);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -116,6 +124,7 @@ public class ForecastFragment extends Fragment {
         //change getview() to rootView if necessary (inflater.inflate(R.layout.fragment_main, container, false);)
         return rootview;
     }
+
 
     /*
     ag1 = parameters, arg2 = progress, arg3 = result
