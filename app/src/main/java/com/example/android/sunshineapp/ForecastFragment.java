@@ -67,20 +67,23 @@ public class ForecastFragment extends Fragment {
         //get item
         int id = item.getItemId();
 
-        //case switch it
+        //look for menu id
         if(id == R.id.action_refresh){
             i(LOG_TAG, "Refresh clicked");
-
-            //retrieve location zip
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            String zipcode = sharedPreferences.getString(LOCATION_KEY, "location");
-
-            //create instance of FetchWeatherTask with execute
-            FetchWeatherTask fetchWeatherTask = new FetchWeatherTask();
-            fetchWeatherTask.execute(zipcode);
+            updateWeather();
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void updateWeather(){
+        //retrieve location zip
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String zipcode = sharedPreferences.getString(LOCATION_KEY, "location");
+
+        //create instance of FetchWeatherTask with execute
+        FetchWeatherTask fetchWeatherTask = new FetchWeatherTask();
+        fetchWeatherTask.execute(zipcode);
     }
 
     @Override
@@ -89,14 +92,6 @@ public class ForecastFragment extends Fragment {
         //rootview
         View rootview = inflater.inflate(R.layout.fragment_main, container, false);
         ArrayList<String> stringArrayList = new ArrayList<>();
-
-        //raw data
-        stringArrayList.add("Today - Sunny - 88/63");
-        stringArrayList.add("Tomorrow - Foggy - 70/46");
-        stringArrayList.add("Weds - Cloudy` - 72/63");
-        stringArrayList.add("Thurs - Rainy - 64/51");
-        stringArrayList.add("Fri - Foggy - 70/46");
-        stringArrayList.add("Sat - Sunny - 76/68");
 
         //pass data into adapter, but dont create until user request them
         //context, xml file, textview, string array
@@ -125,10 +120,16 @@ public class ForecastFragment extends Fragment {
         return rootview;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        updateWeather();
+    }
 
     /*
-    ag1 = parameters, arg2 = progress, arg3 = result
-     */
+        ag1 = parameters, arg2 = progress, arg3 = result
+         */
     public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
 
         private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
