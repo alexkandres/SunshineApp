@@ -3,17 +3,16 @@
 
     <!--Label of ListPreference-->
     <string-array name="pref_units_options">
-        <item>@string/pref_units_label_imperial</item>
         <item>@string/pref_units_label_metric</item>
+        <item>@string/pref_units_label_imperial</item>
     </string-array>
 
 
     <!--Values in ListPreference-->
     <string-array name="pref_units_values">
-        <item>@string/pref_units_imperial</item>
-
         <!--Metric set as default value in ListPreference-->
         <item>@string/pref_units_metric</item>
+        <item>@string/pref_units_imperial</item>
     </string-array>
 
 </resources>

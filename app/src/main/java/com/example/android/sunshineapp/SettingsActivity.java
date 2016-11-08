@@ -9,6 +9,9 @@ import android.widget.Toast;
 
 public class SettingsActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener{
 
+    static final String LOCATION_KEY= "location";
+    static final String UNIT_KEY= "units";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,6 +20,7 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
         // For all preferences, attach an OnPreferenceChangeListener so the UI summary can be
         // updated when the preference changes.		         // updated when the preference changes
        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_location_key)));
+       bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_units_key)));
 
     }
 
@@ -45,6 +49,7 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
             if (prefIndex >= 0) {
                 preference.setSummary(listPreference.getEntries()[prefIndex]);
             }
+            Toast.makeText(this, "Settings for unit changed", Toast.LENGTH_SHORT).show();
         } else {
             // For other preferences, set the summary to the value's simple string representation.
             preference.setSummary(stringValue);

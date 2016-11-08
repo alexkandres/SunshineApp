@@ -2,6 +2,7 @@ package com.example.android.sunshineapp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -41,7 +42,7 @@ import static android.util.Log.i;
  */
 public class ForecastFragment extends Fragment {
 
-    static final String LOCATION_KEY= "location";
+
     String LOG_TAG = ForecastFragment.class.getSimpleName();
     ArrayAdapter<String> mForecastAdapter;
 
@@ -79,7 +80,7 @@ public class ForecastFragment extends Fragment {
     public void updateWeather(){
         //retrieve location zip
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String zipcode = sharedPreferences.getString(LOCATION_KEY, "location");
+        String zipcode = sharedPreferences.getString(SettingsActivity.LOCATION_KEY, "location");
 
         //create instance of FetchWeatherTask with execute
         FetchWeatherTask fetchWeatherTask = new FetchWeatherTask();
@@ -164,6 +165,29 @@ public class ForecastFragment extends Fragment {
             // For presentation, assume the user doesn't care about tenths of a degree.
             long roundedHigh = Math.round(high);
             long roundedLow = Math.round(low);
+
+            //check for preference settings imperial or metric value
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            String unit = sharedPreferences.getString(SettingsActivity.UNIT_KEY, "");
+
+            //get string from array
+            Resources resources = getResources();
+            //String[] unitArray = resources.getStringArray(R.array.pref_units_values);
+
+            //metric value is default
+            if(unit.compareTo(resources.getString(R.string.pref_units_metric)) == 0){
+                return roundedHigh + "/" + roundedLow;
+            }
+            //imperial value
+            else if(unit.compareTo(resources.getString(R.string.pref_units_imperial)) == 0){
+                double farenheitHigh = (high  * 9.0/5) + 32;
+                double farenheitLow = (low * 9.0/5) + 32;
+                return Math.round(farenheitHigh) + "/" + Math.round(farenheitLow);
+            }
+            //this option should never be hit
+            else{
+                Toast.makeText(getActivity(), "ForecastFragment:formatHighLows: Something with wrong in Unit Settings",  Toast.LENGTH_SHORT);
+            }
 
             return roundedHigh + "/" + roundedLow;
         }
