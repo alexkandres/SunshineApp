@@ -1,8 +1,8 @@
 package com.example.android.sunshineapp;
 
 import android.content.Intent;
-import
-        android.os.Bundle;
+import android.net.Uri;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import static android.content.Intent.ACTION_VIEW;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,8 +40,21 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             return true;
         }
-        else if (id == R.id.login){
-            Log.i(LOG_TAG, "Login was clicked");
+        else if (id == R.id.map){
+            Log.i(LOG_TAG, "Map was clicked");
+
+            Uri uri = Uri.parse("geo:47.6,-122.3");
+            Intent intent = new Intent();
+
+            //Set ACTION for app to resolve implicit intent
+            intent.setAction(ACTION_VIEW);
+
+            //Set uri of location
+            intent.setData(uri);
+
+            if(intent.resolveActivity(getPackageManager()) != null){
+                startActivity(intent);
+            }
             return true;
         }
         else if (id == R.id.test){

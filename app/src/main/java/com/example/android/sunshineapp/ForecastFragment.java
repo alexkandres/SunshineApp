@@ -42,7 +42,6 @@ import static android.util.Log.i;
  */
 public class ForecastFragment extends Fragment {
 
-
     String LOG_TAG = ForecastFragment.class.getSimpleName();
     ArrayAdapter<String> mForecastAdapter;
 
@@ -186,7 +185,7 @@ public class ForecastFragment extends Fragment {
             }
             //this option should never be hit
             else{
-                Toast.makeText(getActivity(), "ForecastFragment:formatHighLows: Something with wrong in Unit Settings",  Toast.LENGTH_SHORT);
+                Toast.makeText(getContext(), "ForecastFragment:formatHighLows: Something with wrong in Unit Settings",  Toast.LENGTH_SHORT).show();
             }
 
             return roundedHigh + "/" + roundedLow;
