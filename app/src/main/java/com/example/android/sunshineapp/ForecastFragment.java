@@ -283,12 +283,12 @@ public class ForecastFragment extends Fragment {
             String forecastJsonStr = null;
 
             //check for zipcode argument, if not then use default
-            String zipCode;
+            String zipCode = ",us";
             if(strings.length >= 1) {
-                zipCode = strings[0];
+                zipCode = strings[0] + zipCode;
             }
             else{
-                zipCode = "32826";
+                zipCode = "32826" + zipCode;
             }
             int cnt = 7;
             String cntString = String.valueOf(cnt);
@@ -297,14 +297,14 @@ public class ForecastFragment extends Fragment {
                 // Construct the URL for the OpenWeatherMap query
                 // Possible parameters are available at OWM's forecast API page, at
                 // http://openweathermap.org/API#forecast
-                //URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7");
+                //URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7&APPID=2416aeb32b3e3d8360593abf67e88ddc");
 
                 //URI Builder for url connection
                 Uri.Builder weatherUriBuilder = new Uri.Builder();
                 weatherUriBuilder.scheme("http");
                 weatherUriBuilder.authority("api.openweathermap.org");
                 weatherUriBuilder.path("data/2.5/forecast/daily");
-                weatherUriBuilder.appendQueryParameter("q", zipCode);
+                weatherUriBuilder.appendQueryParameter("zip", zipCode);
                 weatherUriBuilder.appendQueryParameter("mode", "json");
                 weatherUriBuilder.appendQueryParameter("units", "metric");
                 weatherUriBuilder.appendQueryParameter("cnt", cntString);

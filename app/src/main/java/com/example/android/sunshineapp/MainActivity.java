@@ -1,8 +1,10 @@
 package com.example.android.sunshineapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -43,9 +45,12 @@ public class MainActivity extends AppCompatActivity {
         else if (id == R.id.map){
             Log.i(LOG_TAG, "Map was clicked");
 
-            Uri uri = Uri.parse("geo:47.6,-122.3");
-            Intent intent = new Intent();
+            //get preference from getshared preference
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            String zipCodePreference = sharedPreferences.getString(SettingsActivity.LOCATION_KEY, "");
+            Uri uri = Uri.parse("geo:0,0?q="+zipCodePreference);
 
+            Intent intent = new Intent();
             //Set ACTION for app to resolve implicit intent
             intent.setAction(ACTION_VIEW);
 

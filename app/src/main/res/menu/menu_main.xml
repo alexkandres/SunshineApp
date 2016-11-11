@@ -13,7 +13,7 @@
         android:id="@+id/map"
         android:orderInCategory="100"
         android:title="@string/map"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
 
     <!--showAsAction="never" will not put settings in action mebnu-->
     <item
