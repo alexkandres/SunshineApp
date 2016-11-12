@@ -3,6 +3,7 @@
     <string name="action_settings">Settings</string>
     <string name="refresh">Refresh</string>
     <string name="test">Test</string>
+    <string name="share_string">Share</string>
     <string name="map">Map Location</string>
     <string name="login">Login</string>
     <string name="gallery">Gallery</string>

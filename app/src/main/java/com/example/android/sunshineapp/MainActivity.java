@@ -27,6 +27,23 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    public void updateMap(){
+        //get preference from getshared preference
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String zipCodePreference = sharedPreferences.getString(SettingsActivity.LOCATION_KEY, "");
+        Uri uri = Uri.parse("geo:0,0?q="+zipCodePreference);
+
+        Intent intent = new Intent();
+        //Set ACTION for app to resolve implicit intent
+        intent.setAction(ACTION_VIEW);
+
+        //Set uri of location
+        intent.setData(uri);
+
+        if(intent.resolveActivity(getPackageManager()) != null){
+            startActivity(intent);
+        }
+    }
     //define onclick action for item in menu options
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -44,25 +61,10 @@ public class MainActivity extends AppCompatActivity {
         }
         else if (id == R.id.map){
             Log.i(LOG_TAG, "Map was clicked");
-
-            //get preference from getshared preference
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-            String zipCodePreference = sharedPreferences.getString(SettingsActivity.LOCATION_KEY, "");
-            Uri uri = Uri.parse("geo:0,0?q="+zipCodePreference);
-
-            Intent intent = new Intent();
-            //Set ACTION for app to resolve implicit intent
-            intent.setAction(ACTION_VIEW);
-
-            //Set uri of location
-            intent.setData(uri);
-
-            if(intent.resolveActivity(getPackageManager()) != null){
-                startActivity(intent);
-            }
+            updateMap();
             return true;
         }
-        else if (id == R.id.test){
+        else if (id == R.id.menu_item_share){
             Log.i(LOG_TAG, "Test was clicked");
             return true;
         }
