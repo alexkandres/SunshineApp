@@ -44,7 +44,6 @@ public class ForecastFragment extends Fragment {
 
     String LOG_TAG = ForecastFragment.class.getSimpleName();
     ArrayAdapter<String> mForecastAdapter;
-
     public ForecastFragment() {
     }
 
@@ -59,7 +58,7 @@ public class ForecastFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.forecastfragment, menu);
+        inflater.inflate(R.menu.menu_forecast_fragment, menu);
     }
 
     @Override

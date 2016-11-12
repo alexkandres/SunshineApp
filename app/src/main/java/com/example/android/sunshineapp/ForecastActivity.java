@@ -16,14 +16,14 @@ import android.view.View;
 
 import static android.content.Intent.ACTION_VIEW;
 
-public class MainActivity extends AppCompatActivity {
+public class ForecastActivity extends AppCompatActivity {
 
-    private final String  LOG_TAG = MainActivity.class.getSimpleName();
+    private final String  LOG_TAG = ForecastActivity.class.getSimpleName();
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_forecast_activity, menu);
         return true;
     }
 

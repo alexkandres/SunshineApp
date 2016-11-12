@@ -20,6 +20,7 @@ import android.widget.Toast;
  */
 public class DetailFragment extends Fragment {
 
+    static final String LOG_TAG = DetailFragment.class.getSimpleName();
     String weatherData;
 
     ShareActionProvider mShareActionProvider;
@@ -56,7 +57,7 @@ public class DetailFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        //inflater.inflate(R.menu.menu_detail, menu);
+        inflater.inflate(R.menu.menu_detail_fragment, menu);
 
         //locate menuItem with ShareActionProvider
         MenuItem menuItem = menu.findItem(R.id.menu_item_share);
