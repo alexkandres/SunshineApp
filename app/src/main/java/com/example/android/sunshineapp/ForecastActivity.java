@@ -74,6 +74,7 @@ public class ForecastActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i(LOG_TAG, "onCreate clicked");
         setContentView(R.layout.activity_main);
 
         //setting toolbar
@@ -91,20 +92,36 @@ public class ForecastActivity extends AppCompatActivity {
             }
         });
 
-        //add context menu to settings in menu option
-        //ImageButton settings = (ImageButton) findViewById(R.id.action_settings);
-        //View settings = findViewById(R.id.action_settings);
-        //registerForContextMenu(settings);
+
     }
 
-   /* @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i(LOG_TAG, "onStart clicked");
+    }
 
-        //inflate context menu defined in res/menu/context_menu.xml
-        getMenuInflater().inflate(R.menu.context_menu, menu);
-    }*/
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i(LOG_TAG, "onResume clicked");
+    }
 
-    //this inflates the appbar/option menu defined in xml
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i(LOG_TAG, "onPause clicked");
+    }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i(LOG_TAG, "onStop clicked");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i(LOG_TAG, "onDestroy clicked");
+    }
 }

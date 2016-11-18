@@ -55,6 +55,7 @@ public class ForecastFragment extends Fragment {
 
     }
 
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -310,7 +311,6 @@ public class ForecastFragment extends Fragment {
                 weatherUriBuilder.appendQueryParameter("APPID", "2416aeb32b3e3d8360593abf67e88ddc");
 
                 String urlStringFromBuilder = weatherUriBuilder.build().toString();
-
                 //URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=32826&mode=json&units=metric&cnt=7&APPID=2416aeb32b3e3d8360593abf67e88ddc");
                 URL urlFromBuilder = new URL(urlStringFromBuilder);
                 urlConnection = (HttpURLConnection) urlFromBuilder.openConnection();
